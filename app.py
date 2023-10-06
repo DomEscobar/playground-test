@@ -26,7 +26,7 @@ def handler(context: dict, request: Request) -> Response:
     encodeds = tokenizer(text, return_tensors="pt", add_special_tokens=False)
     model_inputs = encodeds.to(device)
     model.to(device)
-    generated_ids = model.generate(**model_inputs, max_new_tokens=max_new_tokens, do_sample=True, repetition_penalty=1.0)
+    generated_ids = model.generate(**model_inputs, max_new_tokens=max_new_tokens, do_sample=True, repetition_penalty=1.0,  details=True, return_full_text=False)
     decoded = tokenizer.batch_decode(generated_ids)
     result = decoded[0]
     return Response(json={"outputs": result}, status=200)
