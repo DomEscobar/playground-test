@@ -7,7 +7,7 @@ app = Potassium("mistral-7b-instruct-v0.1")
 def init() -> dict:
     """Initialize the application with the model and tokenizer."""
     model = AutoModelForCausalLM.from_pretrained("Open-Orca/Mistral-7B-OpenOrca")
-    tokenizer = AutoTokenizer.from_pretrained("Open-Orca/Mistral-7B-OpenOrca")
+    tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.1")
     context = {
         "model": model,
         "tokenizer": tokenizer
