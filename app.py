@@ -6,8 +6,8 @@ app = Potassium("mistral-7b-instruct-v0.1")
 @app.init
 def init() -> dict:
     """Initialize the application with the model and tokenizer."""
-    model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.1")
-    tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.1")
+    model = AutoModelForCausalLM.from_pretrained("Open-Orca/Mistral-7B-OpenOrca")
+    tokenizer = AutoTokenizer.from_pretrained("Open-Orca/Mistral-7B-OpenOrca")
     context = {
         "model": model,
         "tokenizer": tokenizer
@@ -26,7 +26,7 @@ def handler(context: dict, request: Request) -> Response:
     encodeds = tokenizer(text, return_tensors="pt", add_special_tokens=False)
     model_inputs = encodeds.to(device)
     model.to(device)
-    generated_ids = model.generate(**model_inputs, max_new_tokens=max_new_tokens, do_sample=True, repetition_penalty=1.0,  details=True, return_full_text=False)
+    generated_ids = model.generate(**model_inputs, max_new_tokens=max_new_tokens, do_sample=True, details=True, return_full_text=False)
     decoded = tokenizer.batch_decode(generated_ids)
     result = decoded[0]
     return Response(json={"outputs": result}, status=200)
